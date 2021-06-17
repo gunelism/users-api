@@ -10,7 +10,7 @@ const Role = db.role;
 
 const app: Express = express();
 
-// Middlewares
+// Middleware
 app.set('json spaces', 4);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -36,7 +36,7 @@ function initial() {
     name: "admin"
   });
 }
-// initialize Sequelize
+// Initialize Sequelize
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
   initial();
@@ -44,12 +44,10 @@ db.sequelize.sync({ force: true }).then(() => {
 
 
 // Register all routes
-getFilesWithKeyword('router', __dirname + '/app').forEach((file: string) => {
+getFilesWithKeyword('routes', __dirname + '/app').forEach((file: string) => {
   const { router } = require(file);
   app.use('/', router);
 })
-
-// Express Error Handling
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

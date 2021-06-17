@@ -4,9 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import config from '../config.json';
 import { getFilesWithKeyword } from './utils/getFilesWithKeyword';
-
 import { db } from "./app/models";
-const Role = db.role;
 
 const app: Express = express();
 
@@ -25,23 +23,11 @@ if (process.env.NODE_ENV === 'development' || config.NODE_ENV === 'development')
   app.use(bodyParser.urlencoded({ extended: true }));
 }
 
-function initial() {
-  Role.create({
-    id: 1,
-    name: "user"
-  });
- 
-  Role.create({
-    id: 2,
-    name: "admin"
-  });
-}
 // Initialize Sequelize
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
-  initial();
+  db.initialize();
 }); 
-
 
 // Register all routes
 getFilesWithKeyword('routes', __dirname + '/app').forEach((file: string) => {

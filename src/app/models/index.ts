@@ -19,7 +19,8 @@ const db = {
   sequelize: sequelize,
   user: require("../models/user.model.ts")(sequelize, Sequelize),
   role: require("../models/role.model.ts")(sequelize, Sequelize),
-  ROLES: ["user", "admin"]
+  ROLES: ["user", "admin"],
+  initialize: function() {}
 };
 
 db.role.belongsToMany(db.user, {
@@ -33,6 +34,18 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId"
 });
 
-//bax ki bu relation-lar modelde ola bilermi.
+const Role = db.role;
+
+db.initialize = function initial() {
+  Role.create({
+    id: 1,
+    name: "user"
+  });
+ 
+  Role.create({
+    id: 2,
+    name: "admin"
+  });
+}
 
 export { db };

@@ -2,6 +2,7 @@ const verifySignUp = require("../middleware/verifySignUp");
 const controller = require("../controllers/auth.controller");
 import { Request, Response, NextFunction} from "express";
 import { Router } from 'express';
+import { BASE_ENDPOINT } from '../../constants/endpoint';
 
 export const router: Router = Router();
 
@@ -14,7 +15,7 @@ router.use(function(req: Request, res: Response, next: NextFunction) {
 });
 
 router.post(
-  "/api/auth/signup",
+  `${BASE_ENDPOINT}/auth/signup`,
   [
     verifySignUp.checkDuplicateUsernameOrEmail,
     verifySignUp.checkRolesExisted,
@@ -23,4 +24,4 @@ router.post(
   controller.signUp
 );
 
-router.post("/api/auth/signin", controller.signIn);
+router.post(`${BASE_ENDPOINT}/auth/signin`, controller.signIn);

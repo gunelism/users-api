@@ -1,5 +1,5 @@
 {
-  "name": ".",
+  "name": "backend",
   "version": "0.0.1",
   "description": ". initialised with create-express-typescript-application.",
   "main": "src/index.ts",

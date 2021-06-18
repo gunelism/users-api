@@ -4,9 +4,7 @@ import { Request, Response, NextFunction } from "express";
 const ROLES = db.ROLES;
 const User = db.user;
 
-// bunu ayir iki metoda
-const checkDuplicateUsernameOrEmail = (req: Request, res: Response, next: NextFunction) => {
-  // Username
+const checkDuplicateUsername = (req: Request, res: Response, next: NextFunction) => {
   User.findOne({
     where: {
       username: req.body.username
@@ -19,23 +17,26 @@ const checkDuplicateUsernameOrEmail = (req: Request, res: Response, next: NextFu
       return;
     }
 
-    // Email
-    User.findOne({
-      where: {
-        email: req.body.email
-      }
-    }).then((user: any) => {  //burda user-e tip tap
-      if (user) {
-        res.status(400).send({
-          message: "Failed! Email is already in use!"
-        });
-        return;
-      }
-
-      next();
-    });
+    next();
   });
 };
+
+const checkDuplicateEmail = (req: Request, res: Response, next: NextFunction) => {
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then((user: any) => {  
+    if (user) {
+      res.status(400).send({
+        message: "Failed! Email is already in use!"
+      });
+      return;
+    }
+
+    next();
+  });
+}
 
 const checkPasswordValidation = (req: Request, res: Response, next: NextFunction) => {
   if(req.body.password.length < 6 || req.body.password.length > 40){
@@ -64,7 +65,8 @@ const checkRolesExisted = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const verifySignUp = {
-  checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail,
-  checkRolesExisted: checkRolesExisted,
-  checkPasswordValidation: checkPasswordValidation
+  checkDuplicateUsername,
+  checkDuplicateEmail,
+  checkRolesExisted,
+  checkPasswordValidation
 };

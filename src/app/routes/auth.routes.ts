@@ -17,7 +17,8 @@ router.use(function(req: Request, res: Response, next: NextFunction) {
 router.post(
   `${BASE_ENDPOINT}/auth/signup`,
   [
-    verifySignUp.checkDuplicateUsernameOrEmail,
+    verifySignUp.checkDuplicateUsername,
+    verifySignUp.checkDuplicateEmail,
     verifySignUp.checkRolesExisted,
     verifySignUp.checkPasswordValidation
   ],

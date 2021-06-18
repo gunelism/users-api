@@ -9,12 +9,17 @@
     "start": "node ./build/src/index.js",
     "dev": "ts-node ./src/index.ts",
     "dev:nodemon": "nodemon -w src -e ts,json -x ts-node ./src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest --reporters default jest-stare --coverage --detectOpenHandles --runInBand --testTimeout=60000",
+    "test:watch": "jest --verbose --watchAll"
   },
   "keywords": [
     "express",
     "typescript"
   ],
+  "jest": {
+    "verbose": true,
+    "testSequencer": "./testSequencer.js"
+  },
   "devDependencies": {
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.12",
@@ -23,7 +28,11 @@
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
     "eslint": "^7.28.0",
+    "jest": "^27.0.4",
+    "jest-serial-runner": "^1.1.0",
+    "jest-stare": "^2.2.2",
     "nodemon": "^2.0.7",
+    "supertest": "^6.1.3",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.3"
   },

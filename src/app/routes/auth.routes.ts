@@ -1,5 +1,5 @@
-const verifySignUp = require("../middleware/verifySignUp");
-const controller = require("../controllers/auth.controller");
+import { verifySignUp } from "../middleware/verifySignUp";
+import { authController } from "../controllers/auth.controller";
 import { Request, Response, NextFunction} from "express";
 import { Router } from 'express';
 import { BASE_ENDPOINT } from '../../constants/endpoint';
@@ -21,7 +21,7 @@ router.post(
     verifySignUp.checkRolesExisted,
     verifySignUp.checkPasswordValidation
   ],
-  controller.signUp
+  authController.signUp
 );
 
-router.post(`${BASE_ENDPOINT}/auth/signin`, controller.signIn);
+router.post(`${BASE_ENDPOINT}/auth/signin`, authController.signIn);

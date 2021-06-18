@@ -1,13 +1,19 @@
 import { Request, Response } from "express";
 
-exports.allAccess = (req: Request, res: Response) => {
+const allAccess = (req: Request, res: Response) => {
   res.status(200).send("Public Content.");
 };
 
-exports.userBoard = (req: Request, res: Response) => {
+const userBoard = (req: Request, res: Response) => {
   res.status(200).send("User Content.");
 };
 
-exports.adminBoard = (req: Request, res: Response) => {
+const adminBoard = (req: Request, res: Response) => {
   res.status(200).send("Admin Content.");
 };
+
+export const userController = {
+  allAccess,
+  userBoard,
+  adminBoard
+}

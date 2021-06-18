@@ -29,7 +29,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 
 const isAdmin = (req: Request, res: Response, next: NextFunction) => {
     User.findByPk(req.body.userId).then((user: any) => { 
-      user.getRoles().then((roles: any) => { //burda da tip tap
+      user.getRoles().then((roles: any) => {
       for (let i = 0; i < roles.length; i++) {
         if (roles[i].name === "admin") {
           next();
@@ -45,9 +45,7 @@ const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-const authJwt = {
-  verifyToken: verifyToken,
-  isAdmin: isAdmin
+export const authJwt = {
+  verifyToken,
+  isAdmin
 };
-
-module.exports = authJwt;

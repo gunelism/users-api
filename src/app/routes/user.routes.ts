@@ -1,5 +1,5 @@
-const { authJwt } = require("../middleware");
-const controller = require("../controllers/user.controller");
+import { authJwt } from "../middleware/authJwt";
+import { userController } from "../controllers/user.controller";
 import { Request, Response, NextFunction} from "express";
 import { Router } from 'express';
 import { BASE_ENDPOINT } from '../../constants/endpoint';
@@ -14,10 +14,10 @@ router.use(function(req: Request, res: Response, next: NextFunction) {
   next();
 });
 
-router.get(`${BASE_ENDPOINT}/role/all`, controller.allAccess);
+router.get(`${BASE_ENDPOINT}/role/all`, userController.allAccess);
 
 router.get(
   `${BASE_ENDPOINT}/role/user`,
   [authJwt.verifyToken],
-  controller.userBoard
+  userController.userBoard
 );

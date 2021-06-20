@@ -1,7 +1,8 @@
 export const dbConfig = {
-  HOST: "localhost",
+  HOST: "users-mysql",
   USER: "root",
-  PASSWORD: "password",
+  PASSWORD: "root",
+  port: '3306',
   DB: "testdb",
   dialect: "mysql",
   pool: {
@@ -11,4 +12,3 @@ export const dbConfig = {
     idle: 10000
   }
 };
-

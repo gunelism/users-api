@@ -2,7 +2,6 @@ import express, { Express } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import config from '../config.json';
 import { getFilesWithKeyword } from './utils/getFilesWithKeyword';
 import { db } from "./app/models";
 
@@ -14,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Handle logs in console during development
-if (process.env.NODE_ENV === 'development' || config.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
   app.use(cors({ origin: "http://localhost:8081" }));
   // parse requests of content-type - application/json

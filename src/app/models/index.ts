@@ -1,17 +1,28 @@
 import { dbConfig } from "../config/db.config";
 
 let Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: 0,
 
+const sequelize = new Sequelize({
+  host: dbConfig.HOST,
+  port: dbConfig.port,
+  database: dbConfig.DB,
+  username: dbConfig.USER,
+  password: dbConfig.PASSWORD,
+  dialect: dbConfig.dialect,
   pool: {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
     acquire: dbConfig.pool.acquire,
     idle: dbConfig.pool.idle
   }
+});
+sequelize
+.authenticate()
+.then(() => {
+  console.log('Connection has been established successfully.');
+})
+ .catch((err: Error) => {
+ console.error('Unable to connect to the database:', err);
 });
 
 const db = {

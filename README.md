@@ -30,3 +30,4 @@ Login in to your mysql
   4. Change the HOST to `localhost`
   5. Run the script `npm run dev`
   6. In the front-end side change API_URL in both auth.service.js and user.service.js to url API is running on. Usually `http://localhost:8080` 
+  7. And don't forget to npm install :)
